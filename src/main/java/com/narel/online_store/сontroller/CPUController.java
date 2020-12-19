@@ -1,4 +1,4 @@
-package сontroller;
+package com.narel.online_store.сontroller;
 
 
 import com.narel.online_store.Dto.CPUDto;
