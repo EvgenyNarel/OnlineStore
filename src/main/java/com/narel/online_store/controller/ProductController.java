@@ -1,16 +1,13 @@
 package com.narel.online_store.controller;
 
 import com.narel.online_store.model.Product;
+import com.narel.online_store.repository.ProductRepository;
 import com.narel.online_store.service.ProductServiceImpl;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class ProductController {
@@ -18,14 +15,27 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
     @Autowired
-    public ProductController(ProductServiceImpl productService) {
+    public ProductController(ProductServiceImpl productService, ProductRepository productRepository) {
         this.productService = productService;
+
+    }
+
+    @GetMapping("/")
+    public String main(String name) {
+        return "main";
     }
 
     @GetMapping("/product")
-    public String findAll(Model model) {
-        List<Product> product = productService.findAll();
+    public String findAll(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+        Iterable<Product> product = productService.findAll();
+        if (filter != null && !filter.isEmpty()) {
+            product = productService.findByName(filter);
+        } else {
+            product = productService.findAll();
+        }
         model.addAttribute("product", product);
+        model.addAttribute("filter", filter);
+
         return "product-list";
     }
 
@@ -48,16 +58,19 @@ public class ProductController {
 
     @GetMapping("/product-update/{id}")
     public String updateProductForm(@PathVariable("id") Long id, Model model) {
-        Product product=productService.findById(id);
-        model.addAttribute("product",product);
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
         return "product-update";
     }
 
     @PostMapping("/product-update")
-    public String updateProduct(Product product){
+    public String updateProduct(Product product) {
         productService.saveProduct(product);
         return "redirect:/product";
     }
+
+
 }
+
 
 

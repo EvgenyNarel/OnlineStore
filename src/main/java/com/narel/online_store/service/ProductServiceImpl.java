@@ -47,4 +47,6 @@ public class ProductServiceImpl {
     public List<Product> findAll() {
         return productRepository.findAll();
     }
+
+    public List<Product> findByName(String name){return productRepository.findByName(name);}
 }
