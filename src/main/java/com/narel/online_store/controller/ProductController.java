@@ -4,9 +4,17 @@ import com.narel.online_store.model.Product;
 import com.narel.online_store.repository.ProductRepository;
 import com.narel.online_store.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 
 @Controller
@@ -17,8 +25,10 @@ public class ProductController {
     @Autowired
     public ProductController(ProductServiceImpl productService, ProductRepository productRepository) {
         this.productService = productService;
-
     }
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/")
     public String main(String name) {
@@ -45,7 +55,16 @@ public class ProductController {
     }
 
     @PostMapping("/product-create")
-    public String createProduct(Product product) {
+    public String createProduct(@RequestParam("file") MultipartFile file, Product product) throws IOException {
+
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
+            product.setFilename(file.getOriginalFilename());
+                }
         productService.saveProduct(product);
         return "redirect:/product";
     }
@@ -64,10 +83,27 @@ public class ProductController {
     }
 
     @PostMapping("/product-update")
-    public String updateProduct(Product product) {
+    public String updateProduct(@RequestParam("file") MultipartFile file, Product product) throws IOException {
+
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
+            product.setFilename(file.getOriginalFilename());
+
         productService.saveProduct(product);
         return "redirect:/product";
     }
+
+
+    @GetMapping("/laptop/{id}")
+    public String laptopForm(@PathVariable("id") Long id, Model model) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        return "laptop";
+    }
+
 
 
 }

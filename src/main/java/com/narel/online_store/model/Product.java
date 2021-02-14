@@ -3,6 +3,7 @@ package com.narel.online_store.model;
 import lombok.Data;
 
 
+
 import javax.persistence.*;
 
 @Data
@@ -15,10 +16,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+
     private String name;
 
-    private String picture;
+    private String filename;
 
     private double price;
 //
@@ -29,5 +30,7 @@ public class Product {
     private String cpu;
 //
 //    private int core;
+
+
 
 }
