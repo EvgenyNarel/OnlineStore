@@ -13,27 +13,48 @@
 <td th:text="${message}"></td>
 <h1> Регистрация</h1>
 
-<form th:action="@{/registration}" method="post">
+<form  th:action="@{/registration}"  method="POST" th:object="${user}">
+
     <div class="form-group row">
         <label class="col-sm-2 col-form-label mt-1"> Имя пользователя : </label>
         <div class="col-sm-4">
-            <input type="text" name="username" class="form-control" placeholder="Имя"/>
+            <input type="text"  name="username"  class="form-control" placeholder="Имя"/>
+            <p style="color:red" th:if="${usernameError}" th:text="${usernameError}"></p>
+
         </div>
+        <p style="color:red" th:if="${errors}" th:errors="*{username}"></p>
+
+
         <div class="form-group row">
             <label class="col-sm-2 col-form-label mt-1"> Пароль: </label>
             <div class="col-sm-4">
                 <input type="password" name="password" class="form-control" placeholder="Пароль"/>
             </div>
+            <p style="color:red" th:if="${errors}" th:errors="*{password}"></p>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label mt-1"> email:</label>
+                <label class="col-sm-2 col-form-label mt-1"> Пароль: </label>
                 <div class="col-sm-4">
-                    <input type="email" name="email" class="form-control" placeholder="Email"/>
+                    <input type="password" name="password2" class="form-control" placeholder="Повторите пароль"/>
+                    <p style="color:red" th:if="${passwordError}" th:text="${passwordError}">
                 </div>
 
-                <div><input type="submit" value="Register"/></div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label mt-1"> email:</label>
+                    <div class="col-sm-4">
+                        <input type="email" name="email" class="form-control" placeholder="Email"/>
+                    </div>
+                    <p style="color:red" th:if="${errors}" th:errors="*{email}"></p>
+
+                    <div><input type="submit" value="Register"/></div>
 </form>
 
-<form th:action="@{/}" method="get">
+
+
+
+
+
+<form th:action="@{/login}" method="get">
     <input type="submit" value="Ввернуться к авторизации"/>
 </form>
 <!-- Optional JavaScript; choose one of the two! -->

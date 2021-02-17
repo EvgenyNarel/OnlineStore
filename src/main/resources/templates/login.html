@@ -9,19 +9,23 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<div th:if="${param.error} and ${session}" th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION']}">
+    <div class="alert alert-dismissible alert-danger error">
+        Ответ: <span>Неверное имя или пароль</span>
+    </div>
 </div>
+
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
+<h1>Авторизация</h1>
 Введите свою учетную запись
 
 <form th:action="@{/login}" method="post">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label mt-1"> Имя пользователя :</label>
         <div class="col-sm-4">
-            <input type="text" name="username" class="form-control"/>
+            <input type="text" name="username"  class="form-control"/>
         </div>
     </div>
     <div class="form-group row">
@@ -30,6 +34,7 @@
             <input type="password" name="password" class="form-control"/>
         </div>
     </div>
+
     <br>
     <div><input type="submit" value="Войти"/> <a th:href="@{/registration}"> Зарегистрироваться </a></div>
 </form>

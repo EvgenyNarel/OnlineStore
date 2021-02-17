@@ -21,14 +21,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Нужно ввести имя")
+    @NotEmpty(message = "Необходимо ввести имя")
     @Size(min=2, max=20, message = "Имя должно быть от 2 до 20 символов")
     private String username;
+    @NotEmpty(message = "Необходимо ввести пароль")
     private String password;
+    @Transient
+    @NotEmpty(message = "Поле подтверждение пароля не может быть пустым")
+    private String password2;
     private boolean active;
-
-    @NotEmpty(message = "Email не может быть пустым")
-    @Email(message = "email должен быть валидным")
+    @NotEmpty(message = "Необходимо ввести свой email")
+    @Email(message = "Email не корректный ")
     private String email;
 
 
