@@ -11,11 +11,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+public interface CartItemRepository extends JpaRepository<CartItem, Long>{
 
     public List<CartItem> findByUser(User user);
 
     public CartItem findByUserAndProduct(User user, Product product);
+
+
+
+
 
     @Query("UPDATE CartItem c SET c.quantity = ?1 WHERE c.product.id=?2 " + "AND c.user.id=?3")
     @Modifying
@@ -24,4 +28,9 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     @Query("DELETE FROM CartItem c WHERE c.user.id=?1 AND c.product.id=?2")
     @Modifying
     public void deleteByUserAndProduct(Long userId, Long productId);
+
+    @Query("UPDATE CartItem c SET c.formalized = 1 WHERE c.user.id=?1")
+    @Modifying
+    public void updateFormalized(Long userId);
+
 }

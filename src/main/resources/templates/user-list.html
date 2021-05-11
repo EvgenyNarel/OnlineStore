@@ -32,13 +32,18 @@
                 <td th:text="${user.getRoles()}"></td>
                 <td th:text="${user.email}"></td>
 
-                <td><a th:href="@{user/{id}(id=${user.id})}">Edit</a></td>
+                <td sec:authorize="hasAnyAuthority('ADMIN')"><a th:href="@{user/{id}(id=${user.id})}">Edit</a></td>
+                <td sec:authorize="hasAnyAuthority('ADMIN')"><a th:href="@{/user/user-delete/{id}(id=${user.id})}">Delete</a></td>
 
-
-                </form>
             </tr>
             </tbody>
         </table>
+        <br>
+        <br>
+        <form th:action="@{/product}" method="get">
+            <input type="submit" value="Ввернуться"/>
+        </form>
+
 
     </div>
 </div>

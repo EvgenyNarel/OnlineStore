@@ -18,7 +18,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/registration")
     public String registration() {
         return "registration";
@@ -32,8 +31,8 @@ public class RegistrationController {
             return "registration";
         }
         if (bindingResult.hasErrors()) {
-            Map<String,String> errors=ControllerUtils.getErrors(bindingResult);
-            model.addAttribute("errors",errors);
+            Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
+            model.addAttribute("errors", errors);
             return "registration";
         }
         if (!userService.addUser(user)) {

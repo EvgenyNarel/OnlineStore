@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         User user = userRepo.findByUsername(username);
-        if(user==null){
+        if (user == null) {
             throw new UsernameNotFoundException("Неверное имя пользователя или пароль");
         }
         return user;

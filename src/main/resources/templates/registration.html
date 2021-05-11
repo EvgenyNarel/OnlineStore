@@ -13,12 +13,12 @@
 <td th:text="${message}"></td>
 <h1> Регистрация</h1>
 
-<form  th:action="@{/registration}"  method="POST" th:object="${user}">
+<form th:action="@{/registration}" method="POST" th:object="${user}">
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label mt-1"> Имя пользователя : </label>
         <div class="col-sm-4">
-            <input type="text"  name="username"  class="form-control" placeholder="Имя"/>
+            <input type="text" name="username" class="form-control" placeholder="Имя"/>
             <p style="color:red" th:if="${usernameError}" th:text="${usernameError}"></p>
 
         </div>
@@ -48,10 +48,6 @@
 
                     <div><input type="submit" value="Register"/></div>
 </form>
-
-
-
-
 
 
 <form th:action="@{/login}" method="get">

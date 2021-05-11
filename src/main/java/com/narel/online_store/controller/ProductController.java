@@ -1,10 +1,14 @@
 package com.narel.online_store.controller;
 
+import com.narel.online_store.dao.User;
+import com.narel.online_store.model.CartItem;
 import com.narel.online_store.model.Product;
 import com.narel.online_store.repository.ProductRepository;
 import com.narel.online_store.service.ProductServiceImpl;
+import com.narel.online_store.service.ShoppingCartServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
 public class ProductController {
+
+    @Autowired
+    private ShoppingCartServices cartServices;
 
     private final ProductServiceImpl productService;
 
@@ -99,6 +107,10 @@ public class ProductController {
 
     @GetMapping("/laptop/{id}")
     public String laptopForm(@PathVariable("id") Long id, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<CartItem> cartItems =cartServices.listCartItems((User)principal);
+
+        model.addAttribute("cartItems",cartItems);
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         return "laptop";

@@ -15,7 +15,6 @@ function addToCart(){
 
         error: function (response) {
             alert("Добавленно")
-
         }
     });
 }

@@ -30,5 +30,6 @@ public class ShoppingCartController {
         model.addAttribute("pageTitle", "Shopping Cart");
 
         return "shopping_cart";
+
     }
 }

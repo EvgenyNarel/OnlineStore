@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -25,6 +26,10 @@ public class CartItem {
     private User user;
 
     private Integer quantity;
+
+    private boolean formalized;
+
+    private Date date;
 
     @Transient
     public double getTotalItem(){

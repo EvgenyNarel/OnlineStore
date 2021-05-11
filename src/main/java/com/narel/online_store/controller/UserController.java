@@ -66,6 +66,12 @@ public class UserController {
         return "redirect:/user";
     }
 
+    @GetMapping("/user-delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id){
+        userRepo.deleteById(id);
+        return "redirect:/user";
+    }
+
 
 
 }

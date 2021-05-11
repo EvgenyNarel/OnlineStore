@@ -99,10 +99,15 @@
         <div class="mt-2">
             <span class="h3" id="totalAmount"></span>
         </div>
-        <div class="mt-2">
-            <button class="btn btn-danger p-3 mt-2">Оформить</button>
+        <form th:action="@{/orders/formalized}" method="get">
+            <button type="submit" onclick="alert('Заказ оформлен!')" class="btn btn-danger p-3 mt-2">Оформить</button>
 
-        </div>
+        </form>
+<!--        <div class="mt-2">-->
+<!--            <button class="btn btn-danger p-3 mt-2" id="buttonCheckout">Оформить</button>-->
+
+<!--        </div>-->
+
     </div>
 
     <div th:if="${#lists.isEmpty(cartItems)}">
@@ -114,7 +119,7 @@
     contextPath = "[[@{/}]]";
 
 </script>
-<!--<script th:src="@{/js/quantity_control.js}"></script>-->
+
 <script th:src="@{/js/shopping_cart.js}"></script>
 </body>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Update product</title>
@@ -9,7 +9,6 @@
 
 </head>
 <body>
-<div class="container">
 <form action="#" th:action="@{/product-update}" th:object="${product}" method="post" enctype="multipart/form-data">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="id">

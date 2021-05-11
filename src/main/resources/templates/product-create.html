@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Create product</title>
@@ -9,18 +9,27 @@
 
 </head>
 <body>
-<form action="#" th:action="@{/product-create}" th:object="${product}" method="post" enctype="multipart/form-data">
+<p sec:authorize="hasAnyAuthority('ADMIN')"><form action="#" th:action="@{/product-create}" th:object="${product}" method="post" enctype="multipart/form-data">
     <label for="name">Наименнование</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Laptop">
     <br>
     <label for="cpu">Процессор</label>
     <input type="text" th:field="*{cpu}" id="cpu" placeholder="Intel i7">
     <br>
+    <label for="price">Цена</label>
+    <input type="number" th:field="*{price}" id="price" placeholder="price">
+    <br/>
     <label>Изображение</label>
     <input type ="file" name="file">
     <br>
     <input type="submit" value="Сохранить">
 </form>
+<br>
+<br>
+<form th:action="@{/product}" method="get">
+    <input type="submit" value="Ввернуться на главную"/>
+</form>
+
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -57,4 +57,12 @@ public class ShoppingCartServices {
     public void deleteProduct(Long productId, User user){
         cartRepo.deleteByUserAndProduct(user.getId(),productId);
     }
+
+    public void updateFormalized(User user){
+        cartRepo.updateFormalized(user.getId());
+    }
+
+
+
+
 }

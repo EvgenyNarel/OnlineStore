@@ -55,6 +55,7 @@ function increaseQuantity(link) {
     if (newQty < 10) {
         qtyInput.val(newQty);
         updateQuantity(productId, newQty);
+
     }
 }
 

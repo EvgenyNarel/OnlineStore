@@ -13,8 +13,7 @@ import java.util.List;
 public class ProductServiceImpl {
 
     private final ProductRepository productRepository;
-//    private SessionFactory sessionFactory;
-//    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
@@ -41,9 +40,3 @@ public class ProductServiceImpl {
     public List<Product> findByName(String name){return productRepository.findByName(name);}
 
 }
-
-//    public void updateProduct(Product product) {
-//        Session session = this.sessionFactory.getCurrentSession();
-//        session.update(product);
-//        logger.info("Product successfully update: " + product);
-//    }

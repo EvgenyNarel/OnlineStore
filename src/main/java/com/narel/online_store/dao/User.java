@@ -15,14 +15,14 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "Необходимо ввести имя")
-    @Size(min=2, max=20, message = "Имя должно быть от 2 до 20 символов")
+    @Size(min = 2, max = 20, message = "Имя должно быть от 2 до 20 символов")
     private String username;
     @NotEmpty(message = "Необходимо ввести пароль")
     private String password;
@@ -36,11 +36,11 @@ public class User implements UserDetails {
 
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name="user_role",joinColumns = @JoinColumn(name="user_id"))
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
 
